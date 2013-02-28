@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<link rel="stylesheet" href="../css/bootstrap.css">
+
+</head>
+<body>
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+<!-- Add your site or application content here -->
+<div class="hero-unit">
+    <h2>Say Cheese</h2>
+    <div class="well">
+        <h3>Video</h3>
+        <video autoplay></video>
+        <button class="btn btn-success">Take Photo</button>
+    </div>
+    <div class="well">
+        <h3>Canvas</h3>
+        <canvas></canvas>
+    </div>
+    <div class="well">
+        <h3>Image</h3>
+        <img src="">
+    </div>
+</div>
+
+<script src="../js/jquery-1.9.1.js"></script>
+<script>
+$(function(){
+    var video = document.querySelector('video');
+    var canvas = document.querySelector('canvas');
+    var ctx = canvas.getContext('2d');
+    var img = document.querySelector('img');
+    var localStream = false;
+
+
+    //Say Cheese
+    navigator.webkitGetUserMedia({video:true}, function(stream){
+        localStream = stream;
+        video.src = window.URL.createObjectURL(stream);
+    });
+
+    var takePhoto = function(e) {
+        // Lets take a photo.. 
+    };
+
+    $('button').click(takePhoto);
+});
+</script>
+
+</body>
+</html>
