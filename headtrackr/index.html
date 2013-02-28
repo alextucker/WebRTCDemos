@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<link rel="stylesheet" href="../css/bootstrap.css">
+
+</head>
+<body>
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+<!-- Add your site or application content here -->
+<div class="hero-unit">
+    <h2>Headtrackr</h2>
+        <h3>Video</h3>
+        <video autoplay></video>
+        <canvas id="trackr_canvas" width="320" height="240" style="display:none"></canvas>
+        <canvas id="drawing_canvas" width="320" height="240"></canvas>
+    <div class="well">
+        <h3>Debug</h3>
+        <span class="label label-success">X: <span id="xdebug">Waiting..</span></span>
+        <span class="label label-warning">Y: <span id="ydebug">Waiting..</span></span>
+    </div>
+</div>
+
+<script src="../js/jquery-1.9.1.js"></script>
+<script src="../js/headtrackr.js"></script>
+<script>
+$(function(){
+    var video = document.querySelector('video');
+    var trackr_canvas = document.getElementById('trackr_canvas');
+    var drawing_canvas = document.getElementById('drawing_canvas');
+    var ctx = drawing_canvas.getContext('2d');
+    var $xdebug = $('#xdebug');
+    var $ydebug = $('#ydebug');
+
+    var tracker = new headtrackr.Tracker();
+    tracker.init(video, trackr_canvas);
+    tracker.start();
+
+    document.addEventListener('facetrackingEvent', function(e){
+        ctx.fillStyle = 'rgb(200,0,0)';
+        ctx.fillRect(event.x, event.y, 5, 5);
+        $xdebug.html(event.x);
+        $ydebug.html(event.y);
+    });
+
+
+});
+</script>
+
+</body>
+</html>
