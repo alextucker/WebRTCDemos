@@ -28,7 +28,11 @@
         <script src="../js/jquery-1.9.1.js"></script>
         <script>
         $(function(){
-            // Lets write some code...
+            // Say Cheese
+            navigator.webkitGetUserMedia({video:true}, function(stream){
+                var video = document.querySelector('video');
+                video.src = window.URL.createObjectURL(stream);
+            });
         });
         </script>
 
