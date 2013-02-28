@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+<style>
+* {
+    -webkit-transition: .2s all ease;
+}
+
+#container{
+    width: 100%;
+    overflow:hidden;
+}
+
+#left {
+    float:left; 
+    margin-left: -100px;
+    background-color: red;
+    width: 100px;
+}
+
+#center {
+    margin-left: 0;
+    background-color: blue;
+    width:auto;
+    display:block-inline;
+}
+
+</style>
+
+</head>
+<body>
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+<div id="container">
+    <section role="left" id="left">
+        <h1>Left</h1>
+    </section>
+
+    <section role="center" id="center">
+        <h1>Center</h1>
+    </section>
+</div>
+
+<canvas id="inputCanvas" width="320" height="240" style="display:none"></canvas>
+<video id="inputVideo" autoplay loop></video>
+<p>X: <span id="x"></span></p>
+<p>%: <span id="percentage"></span></p>
+
+<script src="../js/jquery-1.9.1.js"></script>
+<script src="../js/headtrackr.js"></script>
+
+<script>
+var $window = $(window);
+var $body = $('body');
+var $left = $('#left');
+var screen_width = document.width;
+
+var original_margin = -100;
+
+var videoInput = document.getElementById('inputVideo');
+var canvasInput = document.getElementById('inputCanvas');
+var $canvas = $('#inputCanvas');
+
+var htracker = new headtrackr.Tracker();
+htracker.init(videoInput, canvasInput);
+htracker.start();
+
+var showLeft = function(percentage) {
+    var offset = percentage * 100;
+
+    if (percentage < 0.45) {
+        var change = (percentage * -100) + 30;
+        $left.css('margin-left', change + 'px');
+    } else {
+        $left.css('margin-left', '-100px');
+    }
+}
+
+document.addEventListener('facetrackingEvent', function(event){
+    var canvas_width = inputCanvas.width - 40;
+    var per = event.x/canvas_width;
+    $('#x').html(event.x);
+    $('#percentage').html(per);
+    showLeft(per);
+});
+</script>
+
+</body>
+</html>
